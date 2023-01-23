@@ -54,17 +54,17 @@ t_bunny_response key_event(t_bunny_event_state state,
 
 int main(void)
 {
-    int mx[6 * 6] = {
-        1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1,
-        1, 1, 0, 1, 1, 1,
-        1, 1, 1, 1, 1, 1,
+    int mx[6 * 8] = {
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 1, 1, 1, 0, 1,
+        1, 1, 0, 1, 1, 0, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
     };
     struct display display;
 
-    display.map.width            = 6;
+    display.map.width            = 8;
     display.map.height           = 6;
     display.map.tile_size        = 100;
     display.map.map              = &mx[0];
