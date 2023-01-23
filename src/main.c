@@ -101,6 +101,8 @@ int main(void)
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
     fill_wall(&display, WHITE);
+    bunny_blit(&display.ds_win->buffer, &display.ds_px->clipable, NULL);
+    bunny_display(display.ds_win);
     bunny_set_key_response(key_event);
     bunny_loop(display.ds_win, 30, &display);
     bunny_stop(display.ds_win);

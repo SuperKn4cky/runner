@@ -9,6 +9,8 @@
 #include "stu.h"
 #include "display.h"
 
+#include <stdio.h>
+
 void fill_wall(struct display *ds, unsigned int color)
 {
     int width;
@@ -27,8 +29,9 @@ void fill_wall(struct display *ds, unsigned int color)
         coef = ds->map.width;
     }
     while (total > 0) {
-        end.x = (total / 1000) / ds->map.height;
-        end.y = (total / 1000) / ds->map.width;
+        end.x = (total / 100) / ds->map.height;
+        end.y = (total / 100) / ds->map.width;
+        //printf("x: %f | y: %f\n", end.x, end.y);
         if (ds->map.map[(int)end.x + coef * (int)end.y] == 0) {
             pix[total] = color;
             total -= 1;
