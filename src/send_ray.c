@@ -16,7 +16,7 @@ t_accurate_pos send_ray(struct map *map,
     t_accurate_pos end;
     int coef;
 
-    end = move_forward(start, angle, 1);
+    end = move_forward(start, angle, 0.01);
     coef = map->height;
     if (map->height < map->width) {
         coef = map->width;
