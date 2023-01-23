@@ -25,6 +25,11 @@ void fov(struct display *ds)
         hit.y *= ds->map.tile_size;
         wall  = pos_from_accurate(&hit);
         stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
-        tmp += M_PI / 360;
+        tmp += M_PI / 4;
     }
+    hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(ds->player.angle));
+    hit.x *= ds->map.tile_size;
+    hit.y *= ds->map.tile_size;
+    wall  = pos_from_accurate(&hit);
+    stu_draw_line(ds->ds_px, &ds->player.pix , &wall, RED);
 }

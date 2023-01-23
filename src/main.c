@@ -79,8 +79,8 @@ int main(void)
     display.map.map       = &mx[0];
     display.player.pos.x  = 2.5;
     display.player.pos.y  = 2.5;
-    display.player.fov    = 100;
-    display.player.angle  = 90;
+    display.player.fov    = 45;
+    display.player.angle  = 0;
     display.ds_win = bunny_start(display.map.width * display.map.tile_size,
                                  display.map.height * display.map.tile_size,
                                  false,
