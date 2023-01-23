@@ -40,5 +40,6 @@ void radar(struct map *map,
            const t_accurate_pos *start,
            double angle);
 void fov(struct display *ds);
+void fill_wall(struct display *ds, unsigned int color);
 
 #endif // STU_H_

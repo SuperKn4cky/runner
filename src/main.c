@@ -36,7 +36,7 @@ static void move(t_bunny_keysym keycode, struct display *ds)
                                       0.05);
     else if (keycode == BKS_D)
         ds->player.pos = move_forward(&ds->player.pos,
-                                      deg_to_rads(ds->player.angle + 260),
+                                      deg_to_rads(ds->player.angle - 90),
                                       0.05);
 }
 
@@ -61,7 +61,8 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (EXIT_ON_SUCCESS);
     move(keycode, ds);
     angle(keycode, ds);
-    clear_pixelarray(ds->ds_px, BLACK);
+    //clear_pixelarray(ds->ds_px, BLACK);
+    fill_wall(ds, WHITE);
     real_pos(ds);
     fov(ds);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
@@ -95,10 +96,11 @@ int main(void)
                                  "fl: runner");
     display.ds_px = bunny_new_pixelarray(display.ds_win->buffer.width,
                                          display.ds_win->buffer.height);
-    clear_pixelarray(display.ds_px, BLACK);
+    //clear_pixelarray(display.ds_px, BLACK);
     display.player.pix    = pos_from_accurate(&display.player.pos);
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
+    fill_wall(&display, WHITE);
     bunny_set_key_response(key_event);
     bunny_loop(display.ds_win, 30, &display);
     bunny_stop(display.ds_win);
