@@ -20,11 +20,11 @@ void fov(struct display *ds)
     }
     tmp = ds->player.angle - (ds->player.fov / 2);
     while (tmp < ds->player.angle + (ds->player.fov / 2)) {
-        hit    = send_ray(&ds->map, &ds->player.pos, tmp);
+        hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(tmp));
         hit.x *= ds->map.tile_size;
         hit.y *= ds->map.tile_size;
         wall  = pos_from_accurate(&hit);
         stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
-        tmp += 1;
+        tmp += 5;
     }
 }

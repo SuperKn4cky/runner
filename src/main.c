@@ -20,6 +20,26 @@ static void real_pos(struct display *ds)
     ds->player.pos.y /= ds->map.tile_size;
 }
 
+static void move(t_bunny_keysym keycode, struct display *ds)
+{
+    if (keycode == BKS_Z)
+        ds->player.pos.y -= 0.1;
+    else if (keycode == BKS_S)
+        ds->player.pos.y += 0.1;
+    else if (keycode == BKS_Q)
+        ds->player.pos.x -= 0.1;
+    else if (keycode == BKS_D)
+        ds->player.pos.x += 0.1;
+}
+
+static void angle(t_bunny_keysym keycode, struct display *ds)
+{
+    if (keycode == BKS_LEFT)
+        ds->player.angle += 1;
+    else if (keycode == BKS_RIGHT)
+        ds->player.angle -= 1;
+}
+
 t_bunny_response key_event(t_bunny_event_state state,
                            t_bunny_keysym keycode,
                            void *data)
@@ -31,14 +51,8 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (GO_ON);
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
-    else if (keycode == BKS_Z)
-        ds->player.pos.y -= 0.1;
-    else if (keycode == BKS_S)
-        ds->player.pos.y += 0.1;
-    else if (keycode == BKS_Q)
-        ds->player.pos.x -= 0.1;
-    else if (keycode == BKS_D)
-        ds->player.pos.x += 0.1;
+    move(keycode, ds);
+    angle(keycode, ds);
     clear_pixelarray(ds->ds_px, BLACK);
     real_pos(ds);
     fov(ds);

@@ -10,18 +10,6 @@
 
 double deg_to_rads(int degrees)
 {
-    double radian;
-
-    if (degrees < 0) {
-        while (degrees < - 360) {
-            degrees += 360;
-        }
-        degrees = 360 - degrees;
-    } else if (degrees > 360) {
-        while (degrees > 360) {
-            degrees -= 360;
-        }
-    }
-    return (radian = (degrees * (2 * M_PI)) / 360);
+    return (degrees * (2 * M_PI)) / 360;
 }
 
