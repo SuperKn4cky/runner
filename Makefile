@@ -17,6 +17,7 @@ SRCS	=	src/main.c			\
 		src/draw_line.c			\
 		src/get_ratio.c			\
 		src/get_value.c			\
+		src/fov.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 

@@ -11,12 +11,19 @@
 #include "display.h"
 #include "stu.h"
 
+static void real_pos(struct display *ds)
+{
+    ds->player.pos.x *= ds->map.tile_size;
+    ds->player.pos.y *= ds->map.tile_size;
+    ds->player.pix = pos_from_accurate(&ds->player.pos);
+    ds->player.pos.x /= ds->map.tile_size;
+    ds->player.pos.y /= ds->map.tile_size;
+}
+
 t_bunny_response key_event(t_bunny_event_state state,
                            t_bunny_keysym keycode,
                            void *data)
 {
-    t_bunny_accurate_position hit;
-    t_bunny_position wall;
     struct display *ds;
 
     ds = data;
@@ -33,22 +40,10 @@ t_bunny_response key_event(t_bunny_event_state state,
     else if (keycode == BKS_D)
         ds->player.pos.x += 0.1;
     clear_pixelarray(ds->ds_px, BLACK);
-    ds->player.pos.x *= ds->map.tile_size;
-    ds->player.pos.y *= ds->map.tile_size;
-    ds->player.pix = pos_from_accurate(&ds->player.pos);
-    ds->player.pos.x /= ds->map.tile_size;
-    ds->player.pos.y /= ds->map.tile_size;
-    while (ds->map.angle < (2 * M_PI)) {
-        hit    = send_ray(&ds->map, &ds->player.pos, ds->map.angle);
-        hit.x *= ds->map.tile_size;
-        hit.y *= ds->map.tile_size;
-        wall  = pos_from_accurate(&hit);
-        stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
-        ds->map.angle += 0.1;
-    }
+    real_pos(ds);
+    fov(ds);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
-    ds->map.angle = 0;
     return (GO_ON);
 }
 
@@ -64,18 +59,18 @@ int main(void)
     };
     struct display display;
 
-    display.map.width            = 8;
-    display.map.height           = 6;
-    display.map.tile_size        = 100;
-    display.map.map              = &mx[0];
-    display.player.pos.x = 2.5;
-    display.player.pos.y = 2.5;
-    display.player.fov = 40;
-    display.map.angle    = 0;
+    display.map.width     = 8;
+    display.map.height    = 6;
+    display.map.tile_size = 100;
+    display.map.map       = &mx[0];
+    display.player.pos.x  = 2.5;
+    display.player.pos.y  = 2.5;
+    display.player.fov    = 100;
+    display.player.angle  = 90;
     display.ds_win = bunny_start(display.map.width * display.map.tile_size,
                                  display.map.height * display.map.tile_size,
                                  false,
-                                 "fl: tp event");
+                                 "fl: runner");
     display.ds_px = bunny_new_pixelarray(display.ds_win->buffer.width,
                                          display.ds_win->buffer.height);
     clear_pixelarray(display.ds_px, BLACK);

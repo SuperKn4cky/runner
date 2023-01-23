@@ -16,7 +16,6 @@ struct map {
     int width;
     int height;
     int *map;
-    double angle;
 };
 
 #endif // MAP_H_

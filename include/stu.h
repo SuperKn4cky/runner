@@ -7,7 +7,7 @@
  */
 
 #include <lapin.h>
-#include "map.h"
+#include "display.h"
 
 #ifndef STU_H_
 #define STU_H_
@@ -39,5 +39,6 @@ void radar(struct map *map,
            t_bunny_pixelarray *pxa,
            const t_accurate_pos *start,
            double angle);
+void fov(struct display *ds);
 
 #endif // STU_H_
