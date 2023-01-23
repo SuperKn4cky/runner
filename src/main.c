@@ -23,13 +23,21 @@ static void real_pos(struct display *ds)
 static void move(t_bunny_keysym keycode, struct display *ds)
 {
     if (keycode == BKS_Z)
-        ds->player.pos.y -= 0.1;
+        ds->player.pos = move_forward(&ds->player.pos,
+                                      deg_to_rads(ds->player.angle),
+                                      0.05);
     else if (keycode == BKS_S)
-        ds->player.pos.y += 0.1;
+        ds->player.pos = move_forward(&ds->player.pos,
+                                      deg_to_rads(ds->player.angle + 180),
+                                      0.05);
     else if (keycode == BKS_Q)
-        ds->player.pos.x -= 0.1;
+        ds->player.pos = move_forward(&ds->player.pos,
+                                      deg_to_rads(ds->player.angle + 90),
+                                      0.05);
     else if (keycode == BKS_D)
-        ds->player.pos.x += 0.1;
+        ds->player.pos = move_forward(&ds->player.pos,
+                                      deg_to_rads(ds->player.angle + 260),
+                                      0.05);
 }
 
 static void angle(t_bunny_keysym keycode, struct display *ds)
