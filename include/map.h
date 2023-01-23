@@ -12,8 +12,6 @@
 #define MAP_H_
 
 struct map {
-    t_bunny_accurate_position player;
-    t_bunny_position pix;
     int tile_size;
     int width;
     int height;

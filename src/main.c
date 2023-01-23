@@ -1,9 +1,9 @@
 /*
  * E89 Pedagogical & Technical Lab
- * project:     learning liblapin
+ * project:     2022_runner
  * created on:  2022-09-29 - 14:39 +0200
  * 1st author:  Élise C. Philippe - eriizu
- * description: events on a window
+ * description: main
  */
 
 #include <math.h>
@@ -25,25 +25,25 @@ t_bunny_response key_event(t_bunny_event_state state,
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
     else if (keycode == BKS_Z)
-        ds->map.player.y -= 0.1;
+        ds->player.pos.y -= 0.1;
     else if (keycode == BKS_S)
-        ds->map.player.y += 0.1;
+        ds->player.pos.y += 0.1;
     else if (keycode == BKS_Q)
-        ds->map.player.x -= 0.1;
+        ds->player.pos.x -= 0.1;
     else if (keycode == BKS_D)
-        ds->map.player.x += 0.1;
+        ds->player.pos.x += 0.1;
     clear_pixelarray(ds->ds_px, BLACK);
-    ds->map.player.x *= ds->map.tile_size;
-    ds->map.player.y *= ds->map.tile_size;
-    ds->map.pix = pos_from_accurate(&ds->map.player);
-    ds->map.player.x /= ds->map.tile_size;
-    ds->map.player.y /= ds->map.tile_size;
+    ds->player.pos.x *= ds->map.tile_size;
+    ds->player.pos.y *= ds->map.tile_size;
+    ds->player.pix = pos_from_accurate(&ds->player.pos);
+    ds->player.pos.x /= ds->map.tile_size;
+    ds->player.pos.y /= ds->map.tile_size;
     while (ds->map.angle < (2 * M_PI)) {
-        hit    = send_ray(&ds->map, &ds->map.player, ds->map.angle);
+        hit    = send_ray(&ds->map, &ds->player.pos, ds->map.angle);
         hit.x *= ds->map.tile_size;
         hit.y *= ds->map.tile_size;
         wall  = pos_from_accurate(&hit);
-        stu_draw_line(ds->ds_px, &ds->map.pix , &wall, GREEN);
+        stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
         ds->map.angle += 0.1;
     }
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
@@ -68,8 +68,9 @@ int main(void)
     display.map.height           = 6;
     display.map.tile_size        = 100;
     display.map.map              = &mx[0];
-    display.map.player.x = 2.5;
-    display.map.player.y = 2.5;
+    display.player.pos.x = 2.5;
+    display.player.pos.y = 2.5;
+    display.player.fov = 40;
     display.map.angle    = 0;
     display.ds_win = bunny_start(display.map.width * display.map.tile_size,
                                  display.map.height * display.map.tile_size,
@@ -78,9 +79,9 @@ int main(void)
     display.ds_px = bunny_new_pixelarray(display.ds_win->buffer.width,
                                          display.ds_win->buffer.height);
     clear_pixelarray(display.ds_px, BLACK);
-    display.map.pix    = pos_from_accurate(&display.map.player);
-    display.map.pix.x *= display.map.tile_size;
-    display.map.pix.y *= display.map.tile_size;
+    display.player.pix    = pos_from_accurate(&display.player.pos);
+    display.player.pix.x *= display.map.tile_size;
+    display.player.pix.y *= display.map.tile_size;
     bunny_set_key_response(key_event);
     bunny_loop(display.ds_win, 30, &display);
     bunny_stop(display.ds_win);
