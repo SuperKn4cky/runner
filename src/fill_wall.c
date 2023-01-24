@@ -20,11 +20,11 @@ void fill_wall(struct display *ds, unsigned int color)
     t_accurate_pos end;
     int coef;
 
-    width = ds->ds_px->clipable.clip_width;
+    width  = ds->ds_px->clipable.clip_width;
     height = ds->ds_px->clipable.clip_height;
-    total = width * height;
-    pix = (unsigned int *) ds->ds_px->pixels;
-    coef = ds->map.height;
+    total  = width * height;
+    pix    = (unsigned int *) ds->ds_px->pixels;
+    coef   = ds->map.height;
     if (ds->map.height < ds->map.width) {
         coef = ds->map.width;
     }
