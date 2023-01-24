@@ -43,9 +43,9 @@ static void move(t_bunny_keysym keycode, struct display *ds)
 static void angle(t_bunny_keysym keycode, struct display *ds)
 {
     if (keycode == BKS_LEFT)
-        ds->player.angle += 1;
+        ds->player.angle += 2;
     else if (keycode == BKS_RIGHT)
-        ds->player.angle -= 1;
+        ds->player.angle -= 2;
 }
 
 t_bunny_response key_event(t_bunny_event_state state,
@@ -99,8 +99,8 @@ int main(void)
     display.player.pix    = pos_from_accurate(&display.player.pos);
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
-    fill_wall(&display, WHITE);
-    //clear_pixelarray(display.ds_px, BLACK);
+    //fill_wall(&display, WHITE);
+    clear_pixelarray(display.ds_px, BLACK);
     real_pos(&display);
     fov(&display);
     bunny_blit(&display.ds_win->buffer, &display.ds_px->clipable, NULL);

@@ -14,8 +14,8 @@
 struct player {
     t_bunny_accurate_position pos;
     t_bunny_position pix;
-    int fov;
     double angle;
+    int fov;
 };
 
 #endif // PLAYER_H_
