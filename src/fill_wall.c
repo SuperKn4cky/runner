@@ -9,8 +9,6 @@
 #include "stu.h"
 #include "display.h"
 
-#include <stdio.h>
-
 void fill_wall(struct display *ds, unsigned int color)
 {
     int width;

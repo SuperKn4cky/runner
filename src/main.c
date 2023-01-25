@@ -92,7 +92,6 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (EXIT_ON_SUCCESS);
     move(keycode, ds);
     angle(keycode, ds);
-    //clear_pixelarray(ds->ds_px, BLACK);
     fill_wall(ds, WHITE);
     real_pos(ds);
     fov(ds);
@@ -130,7 +129,6 @@ int main(void)
     display.player.pix    = pos_from_accurate(&display.player.pos);
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
-    //clear_pixelarray(display.ds_px, BLACK);
     fill_wall(&display, WHITE);
     real_pos(&display);
     fov(&display);
