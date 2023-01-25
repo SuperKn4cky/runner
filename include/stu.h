@@ -35,11 +35,8 @@ void stu_draw_line(t_bunny_pixelarray *px,
                    unsigned int color);
 float get_ratio(int a, int b, int x);
 int get_value(int a, int b, float ratio);
-void radar(struct map *map,
-           t_bunny_pixelarray *pxa,
-           const t_accurate_pos *start,
-           double angle);
 void fov(struct display *ds);
+void clear_fov(struct display *ds);
 void fill_wall(struct display *ds, unsigned int color);
 
 #endif // STU_H_

@@ -90,9 +90,9 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (GO_ON);
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
+    clear_fov(ds);
     move(keycode, ds);
     angle(keycode, ds);
-    fill_wall(ds, WHITE);
     real_pos(ds);
     fov(ds);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);

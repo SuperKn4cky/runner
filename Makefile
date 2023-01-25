@@ -18,6 +18,7 @@ SRCS	=	src/main.c			\
 		src/get_ratio.c			\
 		src/get_value.c			\
 		src/fov.c			\
+		src/clear_fov.c			\
 		src/fill_wall.c			\
 
 OBJS	=	$(SRCS:.c=.o)
