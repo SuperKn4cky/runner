@@ -22,22 +22,53 @@ static void real_pos(struct display *ds)
 
 static void move(t_bunny_keysym keycode, struct display *ds)
 {
-    if (keycode == BKS_Z)
+    int coef;
+
+    coef = ds->map.height;
+    if (ds->map.height < ds->map.width) {
+        coef = ds->map.width;
+    }
+    if (keycode == BKS_Z) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle),
                                       0.05);
-    else if (keycode == BKS_S)
+        if (ds->map.map[(int)ds->player.pos.x +
+                        coef * (int)ds->player.pos.y] == 1) {
+            ds->player.pos = move_forward(&ds->player.pos,
+                                          deg_to_rads(ds->player.angle + 180),
+                                          0.05);
+        }
+    } else if (keycode == BKS_S) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle + 180),
                                       0.05);
-    else if (keycode == BKS_Q)
+        if (ds->map.map[(int)ds->player.pos.x +
+                        coef * (int)ds->player.pos.y] == 1) {
+            ds->player.pos = move_forward(&ds->player.pos,
+                                          deg_to_rads(ds->player.angle),
+                                          0.05);
+        }
+    } else if (keycode == BKS_Q) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle + 90),
                                       0.05);
-    else if (keycode == BKS_D)
+        if (ds->map.map[(int)ds->player.pos.x +
+                        coef * (int)ds->player.pos.y] == 1) {
+            ds->player.pos = move_forward(&ds->player.pos,
+                                          deg_to_rads(ds->player.angle + 270),
+                                          0.05);
+        }
+    } else if (keycode == BKS_D) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle - 90),
                                       0.05);
+        if (ds->map.map[(int)ds->player.pos.x +
+                        coef * (int)ds->player.pos.y] == 1) {
+            ds->player.pos = move_forward(&ds->player.pos,
+                                          deg_to_rads(ds->player.angle + 90),
+                                          0.05);
+        }
+    }
 }
 
 static void angle(t_bunny_keysym keycode, struct display *ds)
@@ -61,8 +92,8 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (EXIT_ON_SUCCESS);
     move(keycode, ds);
     angle(keycode, ds);
-    clear_pixelarray(ds->ds_px, BLACK);
-    //fill_wall(ds, WHITE);
+    //clear_pixelarray(ds->ds_px, BLACK);
+    fill_wall(ds, WHITE);
     real_pos(ds);
     fov(ds);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
@@ -99,8 +130,8 @@ int main(void)
     display.player.pix    = pos_from_accurate(&display.player.pos);
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
-    //fill_wall(&display, WHITE);
-    clear_pixelarray(display.ds_px, BLACK);
+    //clear_pixelarray(display.ds_px, BLACK);
+    fill_wall(&display, WHITE);
     real_pos(&display);
     fov(&display);
     bunny_blit(&display.ds_win->buffer, &display.ds_px->clipable, NULL);
