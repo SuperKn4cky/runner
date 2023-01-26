@@ -35,8 +35,7 @@ void stu_draw_line(t_bunny_pixelarray *px,
                    unsigned int color);
 float get_ratio(int a, int b, int x);
 int get_value(int a, int b, float ratio);
-void fov(struct display *ds);
-void clear_fov(struct display *ds);
+void fov(struct display *ds, unsigned int main_ray, unsigned int ray);
 void fill_wall(struct display *ds, unsigned int color);
 
 #endif // STU_H_

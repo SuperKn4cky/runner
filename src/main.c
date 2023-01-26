@@ -90,11 +90,11 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (GO_ON);
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
-    clear_fov(ds);
+    fov(ds, BLACK, BLACK);
     move(keycode, ds);
     angle(keycode, ds);
     real_pos(ds);
-    fov(ds);
+    fov(ds, RED, GREEN);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
     return (GO_ON);
@@ -131,7 +131,7 @@ int main(void)
     display.player.pix.y *= display.map.tile_size;
     fill_wall(&display, WHITE);
     real_pos(&display);
-    fov(&display);
+    fov(&display, RED, GREEN);
     bunny_blit(&display.ds_win->buffer, &display.ds_px->clipable, NULL);
     bunny_display(display.ds_win);
     bunny_set_key_response(key_event);
