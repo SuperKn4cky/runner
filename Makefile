@@ -9,7 +9,6 @@ NAME	=	runner
 SRCS	=	src/main.c			\
 		src/deg_to_rads.c		\
 		src/move_forward.c		\
-		src/clear_pixelarray.c		\
 		src/send_ray.c			\
 		src/draw_impact.c		\
 		src/pos_from_accurate.c		\
@@ -19,6 +18,7 @@ SRCS	=	src/main.c			\
 		src/get_value.c			\
 		src/fov.c			\
 		src/fill_wall.c			\
+		src/move.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 
