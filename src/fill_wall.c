@@ -26,8 +26,6 @@ void fill_wall(struct display *ds, unsigned int color)
             if (ds->map.map[(((int)end.y / 100) * ds->map.width) +
                             ((int)end.x / 100)] == 1) {
                 put_pixel(ds->ds_px, &pos, color);
-            } else {
-                put_pixel(ds->ds_px, &pos, BLACK);
             }
             end.x -= 1;
         }

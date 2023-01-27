@@ -21,7 +21,6 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
     tmp = ds->player.angle - (ds->player.fov / 2);
     while (tmp < ds->player.angle + (ds->player.fov / 2)) {
         hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(tmp));
-        //hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(tmp - 180));
         hit.x *= ds->map.tile_size;
         hit.y *= ds->map.tile_size;
         wall  = pos_from_accurate(&hit);
@@ -29,7 +28,6 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
         tmp += M_PI / 4;
     }
     hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(ds->player.angle));
-    //hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(tmp - 180));
     hit.x *= ds->map.tile_size;
     hit.y *= ds->map.tile_size;
     wall  = pos_from_accurate(&hit);

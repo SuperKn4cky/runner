@@ -44,6 +44,7 @@ t_bunny_response key_event(t_bunny_event_state state,
     angle(keycode, ds);
     real_pos(ds);
     fov(ds, RED, GREEN);
+    fill_wall(ds, WHITE);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
     return (GO_ON);
@@ -78,6 +79,7 @@ int main(void)
     display.player.pix    = pos_from_accurate(&display.player.pos);
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
+    clear_pixelarray(display.ds_px, BLACK);
     fill_wall(&display, WHITE);
     real_pos(&display);
     fov(&display, RED, GREEN);
