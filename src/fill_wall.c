@@ -23,8 +23,8 @@ void fill_wall(struct display *ds, unsigned int color)
         end.x = width;
         while (end.x >= 0) {
             pos = pos_from_accurate(&end);
-            if (ds->map.map[(((int)end.y / 100) * ds->map.width) +
-                            ((int)end.x / 100)] == 1) {
+            if (ds->map.map[(((int)end.y / ds->map.tile_size) * ds->map.width) +
+                            ((int)end.x / ds->map.tile_size)] == 1) {
                 put_pixel(ds->ds_px, &pos, color);
             }
             end.x -= 1;
