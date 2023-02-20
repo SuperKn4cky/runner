@@ -51,22 +51,12 @@ t_bunny_response key_event(t_bunny_event_state state,
 
 int main(void)
 {
-    int mx[8 * 8] = {
-        1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 0, 1,
-        1, 1, 0, 1, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 1, 0, 1,
-        0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1,
-    };
     struct display display;
 
     display.map.width     = 8;
     display.map.height    = 8;
     display.map.tile_size = 100;
-    display.map.map       = &mx[0];
+    map(&display, display.map.height, display.map.width);
     display.player.pos.x  = 3.5;
     display.player.pos.y  = 1.5;
     display.player.fov    = 45;

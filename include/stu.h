@@ -13,6 +13,7 @@
 #define STU_H_
 
 typedef t_bunny_accurate_position t_accurate_pos;
+void map(struct display *ds, unsigned int height, unsigned int width);
 void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color);
 double deg_to_rads(int degrees);
 t_accurate_pos move_forward(const t_accurate_pos *start,

@@ -7,6 +7,7 @@
 NAME	=	runner
 
 SRCS	=	src/main.c			\
+		src/map.c			\
 		src/clear_pixelarray.c		\
 		src/deg_to_rads.c		\
 		src/move_forward.c		\
