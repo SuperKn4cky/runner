@@ -15,8 +15,14 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
     t_accurate_pos hit;
     double tmp;
     double angle;
+    int coef;
 
-    angle = 1.0 / (ds->map.tile_size / ds->player.fov);
+    coef = ds->map.height;
+    if (ds->map.height > ds->map.width) {
+        coef = ds->map.width;
+    }
+    angle = 1.0 / ((ds->map.tile_size * coef) / ds->player.fov);
+    printf("%f\n", angle);
     if (ds->player.fov <= 0) {
         return;
     }
