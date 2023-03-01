@@ -6,11 +6,12 @@
  * description: lib
  */
 
-#include <lapin.h>
-#include "display.h"
-
 #ifndef STU_H_
 #define STU_H_
+
+#include <lapin.h>
+#include "display.h"
+#include <stdio.h>
 
 typedef t_bunny_accurate_position t_accurate_pos;
 void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color);

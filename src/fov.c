@@ -14,7 +14,9 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
     t_bunny_position wall;
     t_accurate_pos hit;
     double tmp;
+    double angle;
 
+    angle = 1.0 / (ds->map.tile_size / ds->player.fov);
     if (ds->player.fov <= 0) {
         return;
     }
@@ -23,13 +25,19 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
         hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(tmp));
         hit.x *= ds->map.tile_size;
         hit.y *= ds->map.tile_size;
-        wall  = pos_from_accurate(&hit);
+        wall   = pos_from_accurate(&hit);
         stu_draw_line(ds->ds_px, &ds->player.pix , &wall, ray);
-        tmp += M_PI / 4;
+        //(void) ray;
+        tmp   += angle;
     }
     hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(ds->player.angle));
     hit.x *= ds->map.tile_size;
     hit.y *= ds->map.tile_size;
-    wall  = pos_from_accurate(&hit);
+    wall   = pos_from_accurate(&hit);
     stu_draw_line(ds->ds_px, &ds->player.pix , &wall, main_ray);
+    put_pixel(ds->ds_px, &ds->player.pix, RED);
+    /*
+     * (void) wall;
+     * (void) main_ray;
+     */
 }

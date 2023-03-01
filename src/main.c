@@ -39,7 +39,7 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (GO_ON);
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
-    fov(ds, BLACK, BLACK);
+    //fov(ds, BLACK, BLACK);
     move(keycode, ds);
     angle(keycode, ds);
     real_pos(ds);
@@ -51,22 +51,30 @@ t_bunny_response key_event(t_bunny_event_state state,
 
 int main(void)
 {
-    int mx[8 * 8] = {
+    int mx[8 * 16] = {
         1, 1, 1, 1, 1, 1, 1, 1,
         1, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 1, 1, 0, 1,
         1, 1, 0, 1, 0, 0, 0, 1,
         1, 1, 0, 1, 0, 1, 0, 1,
-        0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 0, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 1, 0, 1,
+        1, 1, 0, 1, 0, 0, 0, 1,
+        1, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1,
         1, 1, 1, 1, 1, 1, 1, 1,
     };
     struct display display;
 
     display.map.width     = 8;
-    display.map.height    = 8;
-    display.map.tile_size = 100;
-    display.map.map            = &mx[0];
+    display.map.height    = 16;
+    display.map.tile_size = 50;
+    display.map.map       = &mx[0];
     display.player.pos.x  = 3.5;
     display.player.pos.y  = 1.5;
     display.player.fov    = 45;

@@ -13,7 +13,7 @@ static int good_coef(struct display *ds)
     int coef;
 
     coef = ds->map.height;
-    if (ds->map.height < ds->map.width) {
+    if (ds->map.height > ds->map.width) {
         coef = ds->map.width;
     }
     return (coef);
