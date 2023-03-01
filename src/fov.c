@@ -33,7 +33,6 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
         hit.y *= ds->map.tile_size;
         wall   = pos_from_accurate(&hit);
         stu_draw_line(ds->ds_px, &ds->player.pix , &wall, ray);
-        //(void) ray;
         tmp   += angle;
     }
     hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(ds->player.angle));
@@ -42,8 +41,4 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
     wall   = pos_from_accurate(&hit);
     stu_draw_line(ds->ds_px, &ds->player.pix , &wall, main_ray);
     put_pixel(ds->ds_px, &ds->player.pix, RED);
-    /*
-     * (void) wall;
-     * (void) main_ray;
-     */
 }
