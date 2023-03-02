@@ -39,7 +39,7 @@ t_bunny_response key_event(t_bunny_event_state state,
         return (GO_ON);
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
-    //fov(ds, BLACK, BLACK);
+    fov(ds, BLACK, BLACK);
     move(keycode, ds);
     angle(keycode, ds);
     real_pos(ds);
@@ -51,27 +51,27 @@ t_bunny_response key_event(t_bunny_event_state state,
 
 int main(void)
 {
-    int mx[8 * 16] = {
-        1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 0, 1,
-        1, 1, 0, 1, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 1, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 0, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 0, 1,
-        1, 1, 0, 1, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 1, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1,
+    int mx[16 * 16] = {
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
     };
     struct display display;
 
-    display.map.width     = 8;
+    display.map.width     = 16;
     display.map.height    = 16;
     display.map.tile_size = 50;
     display.map.map       = &mx[0];
@@ -85,6 +85,12 @@ int main(void)
                                  "fl: runner");
     display.ds_px = bunny_new_pixelarray(display.ds_win->buffer.width,
                                          display.ds_win->buffer.height);
+    display.ds_win_3d = bunny_start(display.map.width * display.map.tile_size,
+                                    display.map.height * display.map.tile_size,
+                                    false,
+                                    "fl: runner 3d");
+    display.ds_px_3d = bunny_new_pixelarray(display.ds_win_3d->buffer.width,
+                                            display.ds_win_3d->buffer.height);
     display.player.pix    = pos_from_accurate(&display.player.pos);
     display.player.pix.x *= display.map.tile_size;
     display.player.pix.y *= display.map.tile_size;
@@ -94,8 +100,13 @@ int main(void)
     fov(&display, RED, GREEN);
     bunny_blit(&display.ds_win->buffer, &display.ds_px->clipable, NULL);
     bunny_display(display.ds_win);
+    bunny_blit(&display.ds_win_3d->buffer, &display.ds_px_3d->clipable, NULL);
+    bunny_display(display.ds_win_3d);
     bunny_set_key_response(key_event);
     bunny_loop(display.ds_win, 30, &display);
     bunny_stop(display.ds_win);
+    bunny_loop(display.ds_win_3d, 30, &display);
+    bunny_stop(display.ds_win_3d);
+
     return (0);
 }

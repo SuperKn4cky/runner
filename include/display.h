@@ -16,6 +16,8 @@
 struct display {
     t_bunny_window *ds_win;
     t_bunny_pixelarray *ds_px;
+    t_bunny_window *ds_win_3d;
+    t_bunny_pixelarray *ds_px_3d;
     struct map map;
     struct player player;
 };
