@@ -46,6 +46,8 @@ t_bunny_response key_event(t_bunny_event_state state,
     fov(ds, RED, GREEN);
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
+    bunny_blit(&ds->ds_win_3d->buffer, &ds->ds_px_3d->clipable, NULL);
+    bunny_display(ds->ds_win_3d);
     return (GO_ON);
 }
 

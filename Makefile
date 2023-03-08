@@ -20,6 +20,7 @@ SRCS	=	src/main.c			\
 		src/fov.c			\
 		src/fill_wall.c			\
 		src/move.c			\
+		src/trois_d.c			\
 
 OBJS	=	$(SRCS:.c=.o)
 
