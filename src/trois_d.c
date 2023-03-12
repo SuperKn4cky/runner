@@ -20,6 +20,5 @@ void trois_d(struct display *ds, double angle, t_bunny_position wall)
     if (distance.y < 0) {
         distance.y *= -1;
     }
-    printf("x: %d y: %d\n", distance.x, distance.y);
     (void) angle;
 }
