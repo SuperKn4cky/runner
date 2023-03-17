@@ -46,7 +46,7 @@ void fov(struct display *ds, unsigned int main_ray, unsigned int ray)
     if (ds->map.height > ds->map.width) {
         coef = ds->map.width;
     }
-    coef  = 1.0 / ((ds->map.tile_size * coef) / ds->player.fov);
+    coef  = ds->player.fov / ds->map.width;
     angle = ds->player.angle - (ds->player.fov / 2);
     sky_ground(ds);
     while (angle < ds->player.angle + (ds->player.fov / 2)) {
