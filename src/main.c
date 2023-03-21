@@ -6,12 +6,11 @@
  * description: main
  */
 
-#include <math.h>
-#include <lapin.h>
+
 #include "display.h"
 #include "stu.h"
 
-static void real_pos(struct display *ds)
+static void pix_player_pos(struct display *ds)
 {
     ds->player.pos.x *= ds->map.tile_size;
     ds->player.pos.y *= ds->map.tile_size;
@@ -20,36 +19,42 @@ static void real_pos(struct display *ds)
     ds->player.pos.y /= ds->map.tile_size;
 }
 
-static void angle(t_bunny_keysym keycode, struct display *ds)
+void refresh(struct display *ds)
 {
-    if (keycode == BKS_LEFT)
-        ds->player.angle += 2;
-    else if (keycode == BKS_RIGHT)
-        ds->player.angle -= 2;
+    bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
+    bunny_display(ds->ds_win);
+    bunny_blit(&ds->ds_win_3d->buffer, &ds->ds_px_3d->clipable, NULL);
+    bunny_display(ds->ds_win_3d);
 }
 
 t_bunny_response key_event(t_bunny_event_state state,
                            t_bunny_keysym keycode,
                            void *data)
 {
-    struct display *ds;
-
-    ds = data;
+    (void) data;
     if (state == GO_UP)
         return (GO_ON);
     if (keycode == BKS_ESCAPE)
         return (EXIT_ON_SUCCESS);
-    fov(ds, BLACK, BLACK);
-    move(keycode, ds);
-    angle(keycode, ds);
-    real_pos(ds);
-    fov(ds, RED, GREEN);
-    bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
-    bunny_display(ds->ds_win);
-    bunny_blit(&ds->ds_win_3d->buffer, &ds->ds_px_3d->clipable, NULL);
-    bunny_display(ds->ds_win_3d);
     return (GO_ON);
 }
+
+t_bunny_response loop(void *data)
+{
+    struct display *ds;
+    const bool *keys;
+
+    ds = data;
+    keys = bunny_get_keyboard();
+    move(keys, ds);
+    rotate(keys, ds);
+    pix_player_pos(ds);
+    deux_d(ds);
+    trois_d(ds, 1);
+    refresh(ds);
+    return (GO_ON);
+}
+
 
 int main(void)
 {
@@ -71,44 +76,39 @@ int main(void)
         1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
     };
-    struct display display;
+    struct display ds;
 
-    display.map.width     = 16;
-    display.map.height    = 16;
-    display.map.tile_size = 50;
-    display.map.map       = &mx[0];
-    display.player.pos.x  = 3.5;
-    display.player.pos.y  = 1.5;
-    display.player.fov    = 45;
-    display.player.angle  = 0;
-    display.ds_win = bunny_start(display.map.width * display.map.tile_size,
-                                 display.map.height * display.map.tile_size,
-                                 false,
-                                 "fl: runner");
-    display.ds_px = bunny_new_pixelarray(display.ds_win->buffer.width,
-                                         display.ds_win->buffer.height);
-    display.ds_win_3d = bunny_start(display.map.width * display.map.tile_size,
-                                    display.map.height * display.map.tile_size,
-                                    false,
-                                    "fl: runner 3d");
-    display.ds_px_3d = bunny_new_pixelarray(display.ds_win_3d->buffer.width,
-                                            display.ds_win_3d->buffer.height);
-    display.player.pix    = pos_from_accurate(&display.player.pos);
-    display.player.pix.x *= display.map.tile_size;
-    display.player.pix.y *= display.map.tile_size;
-    clear_pixelarray(display.ds_px, BLACK);
-    fill_wall(&display, WHITE);
-    real_pos(&display);
-    fov(&display, RED, GREEN);
-    bunny_blit(&display.ds_win->buffer, &display.ds_px->clipable, NULL);
-    bunny_display(display.ds_win);
-    bunny_blit(&display.ds_win_3d->buffer, &display.ds_px_3d->clipable, NULL);
-    bunny_display(display.ds_win_3d);
+    ds.map.width     = 16;
+    ds.map.height    = 16;
+    ds.map.tile_size = 100;
+    ds.map.map       = &mx[0];
+    ds.player.pos.x  = 3.5;
+    ds.player.pos.y  = 1.5;
+    ds.player.fov    = 45;
+    ds.player.angle  = 0;
+    ds.ds_win = bunny_start((ds.map.width * ds.map.tile_size) / 2.5,
+                            (ds.map.height * ds.map.tile_size) / 2.5,
+                            false,
+                            "fl: runner");
+    ds.ds_px = bunny_new_pixelarray((ds.ds_win->buffer.width) / 2.5,
+                                    (ds.ds_win->buffer.height) / 2.5);
+    ds.ds_win_3d = bunny_start(ds.map.width * ds.map.tile_size,
+                               ds.map.height * ds.map.tile_size,
+                               false,
+                               "fl: runner 3d");
+    ds.ds_px_3d = bunny_new_pixelarray(ds.ds_win_3d->buffer.width,
+                                       ds.ds_win_3d->buffer.height);
+    ds.max_size = MAX_SIZE(&ds);
+    clear_pixelarray(ds.ds_px, BLACK);
+    pix_player_pos(&ds);
+    deux_d(&ds);
+    trois_d(&ds, 1);
+    refresh(&ds);
     bunny_set_key_response(key_event);
-    bunny_loop(display.ds_win, 30, &display);
-    bunny_stop(display.ds_win);
-    bunny_loop(display.ds_win_3d, 30, &display);
-    bunny_stop(display.ds_win_3d);
-
+    bunny_set_loop_main_function(loop);
+    bunny_loop(ds.ds_win, 30, &ds);
+    bunny_stop(ds.ds_win);
+    bunny_loop(ds.ds_win_3d, 30, &ds);
+    bunny_stop(ds.ds_win_3d);
     return (0);
 }

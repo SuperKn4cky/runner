@@ -12,6 +12,7 @@
 #define MAP_H_
 
 struct map {
+    double distance;
     int tile_size;
     int width;
     int height;

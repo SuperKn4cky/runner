@@ -1,5 +1,5 @@
 /*
- * E89 Pedagogical & Technical Lab
+65;6800;1c65;6800;1c * E89 Pedagogical & Technical Lab
  * project:     tp_laser
  * created on:  2022-11-22 - 09:38 +0100
  * 1st author:  quentin.gimenez - quentin.gimenez
@@ -9,10 +9,15 @@
 #ifndef STU_H_
 #define STU_H_
 
+#include <math.h>
 #include <lapin.h>
 #include "display.h"
 #include <stdio.h>
 
+#define MAX_SIZE(A) (((A)->map.height) > ((A)->map.width)       \
+                     ? ((A)->map.height) : ((A)->map.width))
+#define POS_PLAYER_TO_MAP(B) ((B)->map.map[((int)(B)->player.pos.x) +   \
+                                           ((B)->max_size) * ((int)(B)->player.pos.y)])
 typedef t_bunny_accurate_position t_accurate_pos;
 void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color);
 double deg_to_rads(int degrees);
@@ -36,9 +41,9 @@ void stu_draw_line(t_bunny_pixelarray *px,
                    unsigned int color);
 float get_ratio(int a, int b, int x);
 int get_value(int a, int b, float ratio);
-void fov(struct display *ds, unsigned int main_ray, unsigned int ray);
-void fill_wall(struct display *ds, unsigned int color);
-void move(t_bunny_keysym keycode, struct display *ds);
-void trois_d(struct display *ds, double angle, t_bunny_position wall);
+void move(const bool *keys, struct display *ds);
+void rotate(const bool *keys, struct display *ds);
+void deux_d(struct display *ds);
+void trois_d(struct display *ds, double angle);
 
 #endif // STU_H_
