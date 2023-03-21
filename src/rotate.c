@@ -12,6 +12,6 @@ void rotate(const bool *keys, struct display *ds)
 {
     if (keys[BKS_LEFT])
         ds->player.angle += 2;
-    else if (keys[BKS_RIGHT])
+    if (keys[BKS_RIGHT])
         ds->player.angle -= 2;
 }

@@ -86,12 +86,12 @@ int main(void)
     ds.player.pos.y  = 1.5;
     ds.player.fov    = 45;
     ds.player.angle  = 0;
-    ds.ds_win = bunny_start((ds.map.width * ds.map.tile_size) / 2.5,
-                            (ds.map.height * ds.map.tile_size) / 2.5,
+    ds.ds_win = bunny_start((ds.map.width * ds.map.tile_size),
+                            (ds.map.height * ds.map.tile_size),
                             false,
                             "fl: runner");
-    ds.ds_px = bunny_new_pixelarray((ds.ds_win->buffer.width) / 2.5,
-                                    (ds.ds_win->buffer.height) / 2.5);
+    ds.ds_px = bunny_new_pixelarray((ds.ds_win->buffer.width),
+                                    (ds.ds_win->buffer.height));
     ds.ds_win_3d = bunny_start(ds.map.width * ds.map.tile_size,
                                ds.map.height * ds.map.tile_size,
                                false,

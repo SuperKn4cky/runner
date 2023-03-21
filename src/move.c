@@ -26,17 +26,20 @@ void move(const bool *keys, struct display *ds)
                                       deg_to_rads(ds->player.angle),
                                       0.05);
         stop(ds, 180);
-    } else if (keys[BKS_S]) {
+    }
+    if (keys[BKS_S]) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle + 180),
                                       0.05);
         stop(ds, 0);
-    } else if (keys[BKS_Q]) {
+    }
+    if (keys[BKS_Q]) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle + 90),
                                       0.05);
         stop(ds, 270);
-    } else if (keys[BKS_D]) {
+    }
+    if (keys[BKS_D]) {
         ds->player.pos = move_forward(&ds->player.pos,
                                       deg_to_rads(ds->player.angle - 90),
                                       0.05);

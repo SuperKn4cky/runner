@@ -17,7 +17,7 @@ void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color)
 
     width = pxa->clipable.clip_width;
     height = pxa->clipable.clip_height;
-    total = width * height;
+    total = (width * height) - 1;
     pix = (unsigned int *) pxa -> pixels;
     while (total > 0) {
         pix[total] = color;
