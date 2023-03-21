@@ -23,8 +23,6 @@ void refresh(struct display *ds)
 {
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
-    bunny_blit(&ds->ds_win_3d->buffer, &ds->ds_px_3d->clipable, NULL);
-    bunny_display(ds->ds_win_3d);
 }
 
 t_bunny_response key_event(t_bunny_event_state state,
@@ -86,18 +84,12 @@ int main(void)
     ds.player.pos.y  = 1.5;
     ds.player.fov    = 45;
     ds.player.angle  = 0;
-    ds.ds_win = bunny_start((ds.map.width * ds.map.tile_size),
-                            (ds.map.height * ds.map.tile_size),
+    ds.ds_win = bunny_start(ds.map.width * ds.map.tile_size,
+                            ds.map.height * ds.map.tile_size,
                             false,
                             "fl: runner");
-    ds.ds_px = bunny_new_pixelarray((ds.ds_win->buffer.width),
-                                    (ds.ds_win->buffer.height));
-    ds.ds_win_3d = bunny_start(ds.map.width * ds.map.tile_size,
-                               ds.map.height * ds.map.tile_size,
-                               false,
-                               "fl: runner 3d");
-    ds.ds_px_3d = bunny_new_pixelarray(ds.ds_win_3d->buffer.width,
-                                       ds.ds_win_3d->buffer.height);
+    ds.ds_px = bunny_new_pixelarray(ds.ds_win->buffer.width,
+                                    ds.ds_win->buffer.height);
     ds.max_size = MAX_SIZE(&ds);
     clear_pixelarray(ds.ds_px, BLACK);
     pix_player_pos(&ds);
@@ -108,7 +100,5 @@ int main(void)
     bunny_set_loop_main_function(loop);
     bunny_loop(ds.ds_win, 30, &ds);
     bunny_stop(ds.ds_win);
-    bunny_loop(ds.ds_win_3d, 30, &ds);
-    bunny_stop(ds.ds_win_3d);
     return (0);
 }
