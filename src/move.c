@@ -21,6 +21,7 @@ static void stop(struct display *ds, int angle)
 
 void move(const bool *keys, struct display *ds)
 {
+    ds->player.speed = 0.05;
     if (keys[BKS_LSHIFT]) {
         ds->player.speed *= 2;
     }
