@@ -14,6 +14,7 @@
 struct map {
     double distance;
     int tile_size;
+    int max_size;
     int width;
     int height;
     int *map;

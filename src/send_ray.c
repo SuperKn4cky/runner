@@ -15,19 +15,13 @@ t_accurate_pos send_ray(struct map *map,
 {
     t_accurate_pos end;
     double pas;
-    int coef;
 
     end = move_forward(start, angle, 0.01);
-    coef = map->height;
-    if (map->height > map->width) {
-        coef = map->width;
-    }
     pas = 0.01;
-    while (map->map[(int)end.x + coef * (int)end.y] == 0) {
+    while (POS_TO_MAP(map->map, map->max_size, end) == 0) {
         end = move_forward(start, angle, pas);
         pas += 0.01;
     }
-    pas -= 0.01;
     map->distance = pas;
     return (end);
 }

@@ -16,9 +16,8 @@
 
 #define MAX_SIZE(A) (((A)->map.height) > ((A)->map.width)       \
                      ? ((A)->map.height) : ((A)->map.width))
-#define POS_PLAYER_TO_MAP(B) ((B)->map.map[((int)(B)->player.pos.x) +   \
-                                           ((B)->max_size)              \
-                                           * ((int)(B)->player.pos.y)])
+#define POS_TO_MAP(MAP, SIZE, POS) (MAP[((int) POS.x)                   \
+                                        + (SIZE) * ((int) POS.y)])
 #define SIZE_WALL(C, ANGLE) ((((C)->map.height) * ((C)->map.tile_size)) \
                              / (((C)->map.distance)                     \
                                 * (cos(deg_to_rads(((C)->player.angle)) \

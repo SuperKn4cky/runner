@@ -16,7 +16,7 @@
 struct display {
     t_bunny_window *ds_win;
     t_bunny_pixelarray *ds_px;
-    int max_size;
+    int crosshair_size;
     struct map map;
     struct player player;
 };

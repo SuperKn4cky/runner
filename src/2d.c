@@ -1,5 +1,5 @@
 /*
-11;rgb:0000/0000/0000* E89 Pedagogical & Technical Lab
+ * E89 Pedagogical & Technical Lab
  * project:     2022_runner
  * created on:  2023-01-23 - 10:29 +0100
  * 1st author:  quentin.gimenez - quentin.gimenez

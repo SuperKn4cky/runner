@@ -76,22 +76,19 @@ int main(void)
     };
     struct display ds;
 
-    ds.map.width     = 16;
-    ds.map.height    = 16;
-    ds.map.tile_size = 100;
-    ds.map.map       = &mx[0];
-    ds.player.pos.x  = 3.5;
-    ds.player.pos.y  = 1.5;
-    ds.player.fov    = 65;
-    ds.player.angle  = 0;
-    ds.player.speed  = 0.05;
-    ds.ds_win = bunny_start(ds.map.width * ds.map.tile_size,
-                            ds.map.height * ds.map.tile_size,
-                            false,
-                            "fl: runner");
-    ds.ds_px = bunny_new_pixelarray(ds.ds_win->buffer.width,
-                                    ds.ds_win->buffer.height);
-    ds.max_size = MAX_SIZE(&ds);
+    ds.map.width      = 16;
+    ds.map.height     = 16;
+    ds.map.tile_size  = 100;
+    ds.map.map        = &mx[0];
+    ds.map.max_size   = MAX_SIZE(&ds);
+    ds.player.pos.x   = 3.5;
+    ds.player.pos.y   = 1.5;
+    ds.player.fov     = 65;
+    ds.player.angle   = 0;
+    ds.player.speed   = 0.05;
+    ds.crosshair_size = 20;
+    ds.ds_win = bunny_start(1920, 1080, false, "fl: runner");
+    ds.ds_px = bunny_new_pixelarray(1920, 1080);
     clear_pixelarray(ds.ds_px, BLACK);
     pix_player_pos(&ds);
     //deux_d(&ds);

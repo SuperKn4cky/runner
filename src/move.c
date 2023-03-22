@@ -10,7 +10,7 @@
 
 static void stop(struct display *ds, int angle)
 {
-    if (POS_PLAYER_TO_MAP(ds) != 0
+    if (POS_TO_MAP(ds->map.map, ds->map.max_size, ds->player.pos) != 0
         || ds->player.pos.x < 0
         || ds->player.pos.y < 0) {
         ds->player.pos = move_forward(&ds->player.pos,
