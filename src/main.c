@@ -47,8 +47,8 @@ t_bunny_response loop(void *data)
     move(keys, ds);
     rotate(keys, ds);
     pix_player_pos(ds);
-    deux_d(ds);
-    trois_d(ds, 1);
+    //deux_d(ds);
+    trois_d(ds);
     refresh(ds);
     return (GO_ON);
 }
@@ -82,8 +82,9 @@ int main(void)
     ds.map.map       = &mx[0];
     ds.player.pos.x  = 3.5;
     ds.player.pos.y  = 1.5;
-    ds.player.fov    = 45;
+    ds.player.fov    = 65;
     ds.player.angle  = 0;
+    ds.player.speed  = 0.05;
     ds.ds_win = bunny_start(ds.map.width * ds.map.tile_size,
                             ds.map.height * ds.map.tile_size,
                             false,
@@ -93,8 +94,8 @@ int main(void)
     ds.max_size = MAX_SIZE(&ds);
     clear_pixelarray(ds.ds_px, BLACK);
     pix_player_pos(&ds);
-    deux_d(&ds);
-    trois_d(&ds, 1);
+    //deux_d(&ds);
+    trois_d(&ds);
     refresh(&ds);
     bunny_set_key_response(key_event);
     bunny_set_loop_main_function(loop);

@@ -17,7 +17,12 @@
 #define MAX_SIZE(A) (((A)->map.height) > ((A)->map.width)       \
                      ? ((A)->map.height) : ((A)->map.width))
 #define POS_PLAYER_TO_MAP(B) ((B)->map.map[((int)(B)->player.pos.x) +   \
-                                           ((B)->max_size) * ((int)(B)->player.pos.y)])
+                                           ((B)->max_size)              \
+                                           * ((int)(B)->player.pos.y)])
+#define SIZE_WALL(C, ANGLE) ((((C)->map.height) * ((C)->map.tile_size)) \
+                             / (((C)->map.distance)                     \
+                                * (cos(deg_to_rads(((C)->player.angle)) \
+                                       - (deg_to_rads(ANGLE))))))
 typedef t_bunny_accurate_position t_accurate_pos;
 void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color);
 double deg_to_rads(int degrees);
@@ -44,6 +49,6 @@ int get_value(int a, int b, float ratio);
 void move(const bool *keys, struct display *ds);
 void rotate(const bool *keys, struct display *ds);
 void deux_d(struct display *ds);
-void trois_d(struct display *ds, double angle);
+void trois_d(struct display *ds);
 
 #endif // STU_H_

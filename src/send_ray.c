@@ -27,6 +27,7 @@ t_accurate_pos send_ray(struct map *map,
         end = move_forward(start, angle, pas);
         pas += 0.01;
     }
+    pas -= 0.01;
     map->distance = pas;
     return (end);
 }
