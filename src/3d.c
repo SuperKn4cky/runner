@@ -89,6 +89,14 @@ static void crosshair(struct display *ds)
         i += 1;
         pos.x += 1;
     }
+    i = 0;
+    pos.x = (ds->ds_px->clipable.clip_width / 2);
+    pos.y = (ds->ds_px->clipable.clip_height / 2) - ds->crosshair_size;
+    while (i < (ds->crosshair_size * 2)) {
+        put_pixel(ds->ds_px, &pos, RED);
+        i += 1;
+        pos.y += 1;
+    }
 }
 
 void trois_d(struct display *ds)
