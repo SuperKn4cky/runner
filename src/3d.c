@@ -70,7 +70,6 @@ static void fov(struct display *ds)
     while (i < ds->ds_px->clipable.clip_width) {
         send_ray(&ds->map, &ds->player.pos, deg_to_rads(angle));
         size_wall = SIZE_WALL(ds, angle) * 0.75;
-        printf("%f\n", size_wall);
         if (size_wall > ds->ds_px->clipable.clip_height) {
             size_wall = ds->ds_px->clipable.clip_height;
         }
