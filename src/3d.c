@@ -25,7 +25,7 @@ static void sky_ground(struct display *ds)
         pix[total] = BLACK;
         total -= 1;
     }
-    while (i > 0) {
+    while (i >= 0) {
         pix[i] = BLUE;
         i -= 1;
     }
@@ -62,16 +62,15 @@ static void fov(struct display *ds)
     double angle;
     double coef;
     double size_wall;
-    double c_is_monkey;
     int i;
 
     i = 0;
-    c_is_monkey = (ds->map.width * ds->map.tile_size);
-    coef  = ds->player.fov / c_is_monkey;
+    coef  = ds->player.fov / (double) ds->ds_px->clipable.clip_width;
     angle = ds->player.angle - (ds->player.fov / 2);
     while (i < ds->ds_px->clipable.clip_width) {
         send_ray(&ds->map, &ds->player.pos, deg_to_rads(angle));
-        size_wall = SIZE_WALL(ds, angle);
+        size_wall = SIZE_WALL(ds, angle) * 0.75;
+        printf("%f\n", size_wall);
         if (size_wall > ds->ds_px->clipable.clip_height) {
             size_wall = ds->ds_px->clipable.clip_height;
         }
@@ -81,32 +80,8 @@ static void fov(struct display *ds)
     }
 }
 
-static void crosshair(struct display *ds)
-{
-    t_bunny_position pos;
-    int i;
-
-    i = 0;
-    pos.x = (ds->ds_px->clipable.clip_width / 2) - ds->crosshair_size;
-    pos.y = (ds->ds_px->clipable.clip_height / 2);
-    while (i < (ds->crosshair_size * 2)) {
-        put_pixel(ds->ds_px, &pos, RED);
-        i += 1;
-        pos.x += 1;
-    }
-    i = 0;
-    pos.x = (ds->ds_px->clipable.clip_width / 2);
-    pos.y = (ds->ds_px->clipable.clip_height / 2) - ds->crosshair_size;
-    while (i < (ds->crosshair_size * 2)) {
-        put_pixel(ds->ds_px, &pos, RED);
-        i += 1;
-        pos.y += 1;
-    }
-}
-
 void trois_d(struct display *ds)
 {
     sky_ground(ds);
     fov(ds);
-    crosshair(ds);
 }

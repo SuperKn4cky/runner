@@ -1,5 +1,5 @@
 /*
-65;6800;1c65;6800;1c * E89 Pedagogical & Technical Lab
+ * E89 Pedagogical & Technical Lab
  * project:     tp_laser
  * created on:  2022-11-22 - 09:38 +0100
  * 1st author:  quentin.gimenez - quentin.gimenez
@@ -20,7 +20,7 @@
                                         + (SIZE) * ((int) POS.y)])
 #define SIZE_WALL(C, ANGLE) (((C)->ds_px->clipable.clip_height) /      \
                                (((C)->map.distance)                     \
-                                * (cos(deg_to_rads(((C)->player.angle)) \
+                                * (double) (cos(deg_to_rads(((C)->player.angle)) \
                                        - (deg_to_rads(ANGLE))))))
 typedef t_bunny_accurate_position t_accurate_pos;
 void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color);

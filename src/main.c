@@ -83,10 +83,9 @@ int main(void)
     ds.map.max_size   = MAX_SIZE(&ds);
     ds.player.pos.x   = 3.5;
     ds.player.pos.y   = 1.5;
-    ds.player.fov     = 65;
+    ds.player.fov     = 70;
     ds.player.angle   = 0;
     ds.player.speed   = 0.05;
-    ds.crosshair_size = 20;
     ds.ds_win = bunny_start(1920, 1080, false, "fl: runner");
     ds.ds_px = bunny_new_pixelarray(1920, 1080);
     clear_pixelarray(ds.ds_px, BLACK);
