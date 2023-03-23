@@ -18,13 +18,13 @@
                      ? ((A)->map.height) : ((A)->map.width))
 #define POS_TO_MAP(MAP, SIZE, POS) (MAP[((int) POS.x)                   \
                                         + (SIZE) * ((int) POS.y)])
-#define SIZE_WALL(C, ANGLE) ((((C)->map.height) * ((C)->map.tile_size)) \
-                             / (((C)->map.distance)                     \
+#define SIZE_WALL(C, ANGLE) (((C)->ds_px->clipable.clip_height) /      \
+                               (((C)->map.distance)                     \
                                 * (cos(deg_to_rads(((C)->player.angle)) \
                                        - (deg_to_rads(ANGLE))))))
 typedef t_bunny_accurate_position t_accurate_pos;
 void clear_pixelarray(t_bunny_pixelarray *pxa, unsigned int color);
-double deg_to_rads(int degrees);
+double deg_to_rads(double degrees);
 t_accurate_pos move_forward(const t_accurate_pos *start,
                             double               angle,
                             double               len);

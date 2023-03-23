@@ -61,6 +61,7 @@ static void fov(struct display *ds)
 {
     double angle;
     double coef;
+    double size_wall;
     double c_is_monkey;
     int i;
 
@@ -70,7 +71,11 @@ static void fov(struct display *ds)
     angle = ds->player.angle - (ds->player.fov / 2);
     while (i < ds->ds_px->clipable.clip_width) {
         send_ray(&ds->map, &ds->player.pos, deg_to_rads(angle));
-        draw_wall(ds, SIZE_WALL(ds, angle), i);
+        size_wall = SIZE_WALL(ds, angle);
+        if (size_wall > ds->ds_px->clipable.clip_height) {
+            size_wall = ds->ds_px->clipable.clip_height;
+        }
+        draw_wall(ds, size_wall, i);
         angle += coef;
         i += 1;
     }

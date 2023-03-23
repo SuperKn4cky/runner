@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-double deg_to_rads(int degrees)
+double deg_to_rads(double degrees)
 {
     return (degrees * (2 * M_PI)) / 360;
 }

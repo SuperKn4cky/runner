@@ -23,8 +23,7 @@ static void fill_wall(struct display *ds)
         end.x = width;
         while (end.x >= 0) {
             pos = pos_from_accurate(&end);
-            if (ds->map.map[(((int)end.y / ds->map.tile_size) * ds->map.width) +
-                            ((int)end.x / ds->map.tile_size)] == 1) {
+            if (POS_TO_MAP(ds->map.map, ds->map.max_size, end) == 1) {
                 put_pixel(ds->ds_px, &pos, WHITE);
             }
             end.x -= 1;
@@ -37,21 +36,21 @@ static void fov(struct display *ds)
 {
     t_bunny_position wall;
     t_accurate_pos hit;
-    double angle;
-    double coef;
-    double c_is_monkey;
 
-    c_is_monkey = ds->map.width * ds->map.tile_size;
-    coef  = ds->player.fov / c_is_monkey;
-    angle = ds->player.angle - (ds->player.fov / 2);
-    while (angle < ds->player.angle + (ds->player.fov / 2)) {
-        hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(angle));
-        hit.x *= ds->map.tile_size;
-        hit.y *= ds->map.tile_size;
-        wall   = pos_from_accurate(&hit);
-        stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
-        angle += coef;
-    }
+    hit    = send_ray(&ds->map,
+                      &ds->player.pos,
+                      deg_to_rads(ds->player.angle - (ds->player.fov / 2)));
+    hit.x *= ds->map.tile_size;
+    hit.y *= ds->map.tile_size;
+    wall   = pos_from_accurate(&hit);
+    stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
+    hit    = send_ray(&ds->map,
+                      &ds->player.pos,
+                      deg_to_rads(ds->player.angle + (ds->player.fov / 2)));
+    hit.x *= ds->map.tile_size;
+    hit.y *= ds->map.tile_size;
+    wall   = pos_from_accurate(&hit);
+    stu_draw_line(ds->ds_px, &ds->player.pix , &wall, GREEN);
     hit    = send_ray(&ds->map, &ds->player.pos, deg_to_rads(ds->player.angle));
     hit.x *= ds->map.tile_size;
     hit.y *= ds->map.tile_size;

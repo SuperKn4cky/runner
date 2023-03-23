@@ -16,8 +16,8 @@ t_accurate_pos send_ray(struct map *map,
     t_accurate_pos end;
     double pas;
 
-    end = move_forward(start, angle, 0.01);
     pas = 0.01;
+    end = move_forward(start, angle, pas);
     while (POS_TO_MAP(map->map, map->max_size, end) == 0) {
         end = move_forward(start, angle, pas);
         pas += 0.01;
