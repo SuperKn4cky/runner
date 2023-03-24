@@ -8,7 +8,7 @@
 
 #include "stu.h"
 
-t_bunny_position pos_from_accurate(const t_accurate_pos *accurate)
+t_bunny_position pos_from_accurate(t_accurate_pos *accurate)
 {
     t_bunny_position pos;
 

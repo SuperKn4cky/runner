@@ -47,8 +47,8 @@ t_bunny_response loop(void *data)
     move(keys, ds);
     rotate(keys, ds);
     pix_player_pos(ds);
-    //deux_d(ds);
     trois_d(ds);
+    deux_d(ds);
     refresh(ds);
     return (GO_ON);
 }
@@ -88,10 +88,9 @@ int main(void)
     ds.player.speed   = 0.05;
     ds.ds_win = bunny_start(1920, 1080, false, "fl: runner");
     ds.ds_px = bunny_new_pixelarray(1920, 1080);
-    clear_pixelarray(ds.ds_px, BLACK);
     pix_player_pos(&ds);
-    //deux_d(&ds);
     trois_d(&ds);
+    deux_d(&ds);
     refresh(&ds);
     bunny_set_key_response(key_event);
     bunny_set_loop_main_function(loop);

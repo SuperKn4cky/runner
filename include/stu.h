@@ -28,7 +28,7 @@ double deg_to_rads(double degrees);
 t_accurate_pos move_forward(const t_accurate_pos *start,
                             double               angle,
                             double               len);
-t_bunny_position pos_from_accurate(const t_accurate_pos *);
+t_bunny_position pos_from_accurate(t_accurate_pos *);
 t_accurate_pos send_ray(struct map *map,
                         const t_accurate_pos *start,
                         double angle);
