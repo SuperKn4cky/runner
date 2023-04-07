@@ -17,6 +17,7 @@ struct player {
     double speed;
     double angle;
     int fov;
+    int level;
 };
 
 #endif // PLAYER_H_

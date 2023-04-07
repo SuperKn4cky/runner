@@ -13,6 +13,7 @@
 
 struct map {
     double distance;
+    int type_wall;
     int tile_size;
     int max_size;
     int width;

@@ -7,7 +7,6 @@
  */
 
 #include "stu.h"
-#include "map.h"
 
 void draw_impact(struct map *map,
                  t_bunny_pixelarray *pxa,
@@ -17,9 +16,9 @@ void draw_impact(struct map *map,
     t_bunny_position end;
     t_accurate_pos tmp;
 
-    tmp = send_ray(map, start, angle);
+    tmp    = send_ray(map, start, angle);
     tmp.x *= map->tile_size;
     tmp.y *= map->tile_size;
-    end = pos_from_accurate(&tmp);
+    end    = pos_from_accurate(&tmp);
     put_pixel(pxa, &end, WHITE);
 }

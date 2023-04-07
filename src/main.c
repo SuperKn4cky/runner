@@ -6,8 +6,6 @@
  * description: main
  */
 
-
-#include "display.h"
 #include "stu.h"
 
 static void pix_player_pos(struct display *ds)
@@ -23,6 +21,10 @@ void refresh(struct display *ds)
 {
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
+    bunny_set_mouse_position_window(ds->ds_win,
+                                    ds->ds_px->clipable.clip_width /2,
+                                    ds->ds_px->clipable.clip_height /2);
+
 }
 
 t_bunny_response key_event(t_bunny_event_state state,
@@ -44,11 +46,19 @@ t_bunny_response loop(void *data)
 
     ds = data;
     keys = bunny_get_keyboard();
-    move(keys, ds);
-    rotate(keys, ds);
-    pix_player_pos(ds);
-    trois_d(ds);
-    deux_d(ds);
+    if (ds->player.level == 0) {
+        if (keys[BKS_RETURN])
+            ds->player.level = 1;
+    } else {
+        move(keys, ds);
+        extra(keys, ds);
+        rotate(keys, ds);
+        pix_player_pos(ds);
+        raycasting(ds);
+        //mini_map(ds);
+        ds->map.map = map(ds);
+        action_wall(ds);
+    }
     refresh(ds);
     return (GO_ON);
 }
@@ -56,45 +66,22 @@ t_bunny_response loop(void *data)
 
 int main(void)
 {
-    int mx[16 * 16] = {
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-    };
     struct display ds;
 
-    ds.map.width      = 16;
-    ds.map.height     = 16;
     ds.map.tile_size  = 100;
-    ds.map.map        = &mx[0];
+    ds.map.map        = map(&ds);
     ds.map.max_size   = MAX_SIZE(&ds);
-    ds.player.pos.x   = 3.5;
-    ds.player.pos.y   = 1.5;
-    ds.player.fov     = 65;
+    ds.player.level   = 0;
+    reset_player_pos(&ds);
+    ds.player.fov     = 90;
     ds.player.angle   = 0;
     ds.player.speed   = 0.05;
-    ds.ds_win = bunny_start(1920, 1080, false, "fl: runner");
-    ds.ds_px = bunny_new_pixelarray(1920, 1080);
-    pix_player_pos(&ds);
-    trois_d(&ds);
-    deux_d(&ds);
-    refresh(&ds);
+    ds.ds_win = bunny_start(960, 540, false, "fl: runner");
+    ds.ds_px = bunny_new_pixelarray(960, 540);
     bunny_set_key_response(key_event);
+    bunny_set_mouse_visibility(ds.ds_win, false);
     bunny_set_loop_main_function(loop);
-    bunny_loop(ds.ds_win, 30, &ds);
+    bunny_loop(ds.ds_win, 60, &ds);
     bunny_stop(ds.ds_win);
     return (0);
 }

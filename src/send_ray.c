@@ -7,7 +7,6 @@
  */
 
 #include "stu.h"
-#include "map.h"
 
 t_accurate_pos send_ray(struct map *map,
                         const t_accurate_pos *start,
@@ -23,5 +22,8 @@ t_accurate_pos send_ray(struct map *map,
         end = move_forward(&end, angle, pas);
         map->distance += pas;
     }
+    map->type_wall = POS_TO_MAP(map->map,
+                                  map->max_size,
+                                  move_forward(&end, angle, 0.01));
     return (end);
 }

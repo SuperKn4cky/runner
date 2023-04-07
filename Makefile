@@ -7,7 +7,11 @@
 NAME	=	runner
 
 SRCS	=	src/main.c			\
+		src/map.c			\
+		src/action_wall.c		\
+		src/reset_player_pos.c		\
 		src/clear_pixelarray.c		\
+		src/mk_colour.c			\
 		src/deg_to_rads.c		\
 		src/move_forward.c		\
 		src/send_ray.c			\
@@ -18,9 +22,10 @@ SRCS	=	src/main.c			\
 		src/get_ratio.c			\
 		src/get_value.c			\
 		src/move.c			\
+		src/extra.c			\
 		src/rotate.c			\
-		src/2d.c			\
-		src/3d.c			\
+		src/mini_map.c			\
+		src/raycasting.c		\
 
 OBJS	=	$(SRCS:.c=.o)
 

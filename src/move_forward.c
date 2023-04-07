@@ -6,7 +6,6 @@
  * description: move forward
  */
 
-#include <lapin.h>
 #include "stu.h"
 
 t_accurate_pos move_forward(const t_accurate_pos *start,
