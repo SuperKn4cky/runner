@@ -15,15 +15,12 @@ SRCS	=	src/main.c			\
 		src/deg_to_rads.c		\
 		src/move_forward.c		\
 		src/send_ray.c			\
-		src/draw_impact.c		\
 		src/pos_from_accurate.c		\
 		src/put_pixel.c			\
 		src/draw_line.c			\
 		src/get_ratio.c			\
 		src/get_value.c			\
-		src/move.c			\
-		src/extra.c			\
-		src/rotate.c			\
+		src/keys_actions.c			\
 		src/raycasting.c		\
 
 OBJS	=	$(SRCS:.c=.o)

@@ -72,7 +72,7 @@ int main(void)
     ds.player.angle   = 0;
     ds.player.speed   = 0.05;
     ds.ds_win = bunny_start(960, 540, false, "fl: runner");
-    ds.ds_px = bunny_new_pixelarray(960, 540);
+    ds.ds_px  = bunny_new_pixelarray(960, 540);
     bunny_set_key_response(key_event);
     bunny_set_mouse_visibility(ds.ds_win, false);
     bunny_set_loop_main_function(loop);

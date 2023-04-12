@@ -13,6 +13,9 @@ void action_wall(struct display *ds)
     int angle;
 
     angle = 0;
+    if (ds->map.map == NULL) {
+        return;
+    }
     while (angle < 360) {
         if (POS_TO_MAP(ds->map.map,
                        ds->map.max_size,
