@@ -55,7 +55,8 @@ int get_value(int a, int b, float ratio);
 void move(const bool *keys, struct display *ds);
 void extra(const bool *keys, struct display *ds);
 void rotate(const bool *keys, struct display *ds);
-void mini_map(struct display *ds);
 void raycasting(struct display *ds);
+int stu_atoi(const char *str);
+void read_file(char *buffer, char *file);
 
 #endif // STU_H_

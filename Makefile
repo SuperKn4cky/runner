@@ -24,7 +24,6 @@ SRCS	=	src/main.c			\
 		src/move.c			\
 		src/extra.c			\
 		src/rotate.c			\
-		src/mini_map.c			\
 		src/raycasting.c		\
 
 OBJS	=	$(SRCS:.c=.o)

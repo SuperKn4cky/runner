@@ -8,7 +8,7 @@
 
 #include <stu.h>
 
-static void sky_ground(struct display *ds)
+static void sky_floor(struct display *ds)
 {
     int width;
     int height;
@@ -94,6 +94,6 @@ void raycasting(struct display *ds)
         clear_pixelarray(ds->ds_px, BLACK);
         return;
     }
-    sky_ground(ds);
+    sky_floor(ds);
     fov(ds);
 }

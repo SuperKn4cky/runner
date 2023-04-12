@@ -21,10 +21,6 @@ void refresh(struct display *ds)
 {
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
     bunny_display(ds->ds_win);
-    bunny_set_mouse_position_window(ds->ds_win,
-                                    ds->ds_px->clipable.clip_width /2,
-                                    ds->ds_px->clipable.clip_height /2);
-
 }
 
 t_bunny_response key_event(t_bunny_event_state state,
@@ -55,7 +51,6 @@ t_bunny_response loop(void *data)
         rotate(keys, ds);
         pix_player_pos(ds);
         raycasting(ds);
-        //mini_map(ds);
         ds->map.map = map(ds);
         action_wall(ds);
     }
