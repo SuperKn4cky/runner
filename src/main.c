@@ -54,6 +54,8 @@ t_bunny_response loop(void *data)
         ds->map.map = map(ds);
         action_wall(ds);
     }
+    if (ds->player.level == 3)
+        return (EXIT_ON_SUCCESS);
     refresh(ds);
     return (GO_ON);
 }
