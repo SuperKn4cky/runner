@@ -20,7 +20,7 @@ SRCS	=	src/main.c			\
 		src/draw_line.c			\
 		src/get_ratio.c			\
 		src/get_value.c			\
-		src/keys_actions.c			\
+		src/keys_actions.c		\
 		src/raycasting.c		\
 
 OBJS	=	$(SRCS:.c=.o)
@@ -48,7 +48,7 @@ $(NAME): $(OBJS)
 
 save:
 	git status
-	git add src/*.c include/*.h Makefile
+	git add src/*.c src/*.jpg include/*.h Makefile
 	git commit -m "$(NAME) save"
 	git push
 
