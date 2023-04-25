@@ -27,7 +27,7 @@ OBJS	=	$(SRCS:.c=.o)
 
 CFLAGS	+=	-W -Wall -Wextra -Werror -Iinclude/
 
-LDFLAGS	+= 	-llapin -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -lstdc++ -lm
+LDFLAGS	+= 	-llapin -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system -lstdc++ -lm -lavcall
 
 RM	=	rm -vf
 

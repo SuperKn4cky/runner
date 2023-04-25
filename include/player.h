@@ -13,7 +13,6 @@
 
 struct player {
     t_bunny_accurate_position pos;
-    t_bunny_position pix;
     double speed;
     double angle;
     int fov;

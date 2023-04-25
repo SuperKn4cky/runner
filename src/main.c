@@ -8,15 +8,6 @@
 
 #include "stu.h"
 
-static void pix_player_pos(struct display *ds)
-{
-    ds->player.pos.x *= ds->map.tile_size;
-    ds->player.pos.y *= ds->map.tile_size;
-    ds->player.pix = pos_from_accurate(&ds->player.pos);
-    ds->player.pos.x /= ds->map.tile_size;
-    ds->player.pos.y /= ds->map.tile_size;
-}
-
 void refresh(struct display *ds)
 {
     bunny_blit(&ds->ds_win->buffer, &ds->ds_px->clipable, NULL);
@@ -35,6 +26,19 @@ t_bunny_response key_event(t_bunny_event_state state,
     return (GO_ON);
 }
 
+void start_img(struct display *ds)
+{
+    t_bunny_picture *start_screen;
+    t_bunny_position pos;
+
+    pos.x = 0;
+    pos.y = 0;
+    start_screen = bunny_load_picture("src/start_screen.jpg");
+    start_screen->clip_width = 960;
+    start_screen->clip_height = 540;
+    bunny_blit(&ds->ds_win->buffer, start_screen, &pos);
+}
+
 t_bunny_response loop(void *data)
 {
     struct display *ds;
@@ -43,13 +47,13 @@ t_bunny_response loop(void *data)
     ds = data;
     keys = bunny_get_keyboard();
     if (ds->player.level == 0) {
-        if (keys[BKS_RETURN])
+        if (keys[BKS_RETURN]) {
             ds->player.level = 1;
+        }
     } else {
         move(keys, ds);
         extra(keys, ds);
         rotate(keys, ds);
-        pix_player_pos(ds);
         raycasting(ds);
         ds->map.map = map(ds);
         action_wall(ds);
@@ -77,6 +81,7 @@ int main(void)
     ds.ds_px  = bunny_new_pixelarray(960, 540);
     bunny_set_key_response(key_event);
     bunny_set_mouse_visibility(ds.ds_win, false);
+    start_img(&ds);
     bunny_set_loop_main_function(loop);
     bunny_loop(ds.ds_win, 60, &ds);
     bunny_stop(ds.ds_win);
