@@ -10,16 +10,18 @@
 
 static void sky_floor(struct display *ds)
 {
+    int vertical_offset;
     int width;
     int height;
     int total;
     int i;
     unsigned int *pix;
 
+    vertical_offset = ds->player.jump_height;
     width = ds->ds_px->clipable.clip_width;
     height = ds->ds_px->clipable.clip_height;
     total = (width * height) - 1;
-    i = (width * height) / 2;
+    i = (width * height) / 2 + vertical_offset * width;
     pix = (unsigned int *) ds->ds_px->pixels;
     while (total > i) {
         pix[total] = BLACK;
@@ -35,15 +37,17 @@ static void draw_wall(struct display *ds, int size_wall, int pos)
 {
     unsigned int color;
     t_bunny_position pix;
+    int vertical_offset;
     int width;
     int height;
     int i;
 
     i = 0;
+    vertical_offset = ds->player.jump_height;
     width = ds->ds_px->clipable.clip_width;
     height = ds->ds_px->clipable.clip_height;
     pix.x = width - pos;
-    pix.y = height / 2;
+    pix.y = (height / 2) + vertical_offset;
     if (ds->map.type_wall == 2) {
         color = mk_colour(255, 0, 0, 1);
     } else if (ds->map.type_wall == 1 || ds->map.type_wall == 0) {
@@ -57,7 +61,7 @@ static void draw_wall(struct display *ds, int size_wall, int pos)
         i += 1;
     }
     i = 0;
-    pix.y = height / 2;
+    pix.y = (height / 2) + vertical_offset;
     while (i <= size_wall / 2) {
         put_pixel(ds->ds_px, &pix, color);
         pix.y -= 1;

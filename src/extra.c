@@ -12,6 +12,6 @@ void extra(const bool *keys, struct display *ds)
 {
     ds->player.speed = 0.05;
     if (keys[BKS_LSHIFT]) {
-        ds->player.speed *= 2;
+        ds->player.speed *= 1.5;
     }
 }

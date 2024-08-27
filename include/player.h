@@ -17,6 +17,11 @@ struct player {
     double angle;
     int fov;
     int level;
+    double jump_height;
+    double vertical_speed;
+    double gravity;
+    bool is_jumping;
+    bool pause;
 };
 
 #endif // PLAYER_H_

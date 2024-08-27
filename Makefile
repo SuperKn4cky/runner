@@ -6,22 +6,24 @@
 
 NAME	=	runner
 
-SRCS	=	src/main.c			\
-		src/map.c			\
-		src/action_wall.c		\
-		src/reset_player_pos.c		\
-		src/clear_pixelarray.c		\
-		src/mk_colour.c			\
-		src/deg_to_rads.c		\
-		src/move_forward.c		\
-		src/send_ray.c			\
-		src/pos_from_accurate.c		\
-		src/put_pixel.c			\
-		src/draw_line.c			\
-		src/get_ratio.c			\
-		src/get_value.c			\
-		src/keys_actions.c		\
-		src/raycasting.c		\
+SRCS	=	src/main.c				\
+			src/map.c				\
+			src/action_wall.c		\
+			src/reset_player_pos.c	\
+			src/clear_pixelarray.c	\
+			src/mk_colour.c			\
+			src/deg_to_rads.c		\
+			src/move_forward.c		\
+			src/send_ray.c			\
+			src/pos_from_accurate.c	\
+			src/put_pixel.c			\
+			src/draw_line.c			\
+			src/get_ratio.c			\
+			src/get_value.c			\
+			src/raycasting.c		\
+			src/rotate.c			\
+			src/extra.c 			\
+			src/move.c 				\
 
 OBJS	=	$(SRCS:.c=.o)
 

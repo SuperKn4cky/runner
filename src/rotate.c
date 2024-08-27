@@ -18,10 +18,10 @@ void rotate(const bool *keys, struct display *ds)
     ratio = get_ratio(ds->ds_px->clipable.clip_width / 2,
                       ds->ds_px->clipable.clip_width,
                       mouse->x);
+    ds->player.angle -= ratio * 20;
     bunny_set_mouse_position_window(ds->ds_win,
                                     ds->ds_px->clipable.clip_width /2,
                                     ds->ds_px->clipable.clip_height /2);
-    ds->player.angle += ratio * 20;
     if (keys[BKS_LEFT])
         ds->player.angle += 4;
     if (keys[BKS_RIGHT])
